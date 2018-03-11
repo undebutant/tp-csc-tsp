@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>README</title>
+<!-- 2017-06-05 lun. 15:23 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="simatic" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">README</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Utilisation du répertoire TCP<sub>and</sub><sub>libevent</sub></a>
+<ul>
+<li><a href="#sec-1-1">1.1. Serveur mono-tâche gérant un client à la fois</a></li>
+<li><a href="#sec-1-2">1.2. Serveur avec autant de tâches que de clients</a></li>
+<li><a href="#sec-1-3">1.3. Serveur avec pool de threads pour gérer les clients</a></li>
+<li><a href="#sec-1-4">1.4. Serveur avec N tâches gérant n clients</a></li>
+<li><a href="#sec-1-5">1.5. Serveur mono-tâche gérant tous les clients à la fois.</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Utilisation du répertoire TCP<sub>and</sub><sub>libevent</sub></h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Ce répertoire illustre le cours ASR3/JIN3 "Éléments d'architecture
+client-serveur".
+</p>
+</div>
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Serveur mono-tâche gérant un client à la fois</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Présenter clientTCP.c et son fonctionnement
+</li>
+<li>Présenter serveurTCP<sub>1</sub><sub>tache</sub><sub>1</sub><sub>client</sub>.c et son fonctionnement
+</li>
+<li>make
+</li>
+<li>./serveurTCP<sub>1</sub><sub>tache</sub><sub>1</sub><sub>client</sub>
+</li>
+<li>./clientTCP toto
+</li>
+<li>Expliquer les sorties du serveur et du client.
+</li>
+<li>for((i=1;i&lt;=600;i+=1)); do (./clientTCP $i &amp;);done
+</li>
+<li>Constater qu'un client attend que le client precedent ait fini de
+s'executer
+</li>
+<li>Arrêter le serveur
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Serveur avec autant de tâches que de clients</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>Présenter serveurTCP<sub>n</sub><sub>tache</sub><sub>n</sub><sub>client</sub>.c et son fonctionnement
+</li>
+<li>./serveurTCP<sub>n</sub><sub>tache</sub><sub>n</sub><sub>client</sub>
+</li>
+<li>for((i=1;i&lt;=600;i+=1)); do (./clientTCP $i &amp;);done
+</li>
+<li>Constater que l'exécution est beaucoup plus rapide.
+</li>
+<li>Expliquer qu'il y a un bug et que pour le voir, il faut que les
+requetes du client durent plus longtemps.
+<ul class="org-ul">
+<li>Arrêter le serveur et le redémarrer.
+</li>
+<li>Dans clientTCP.c, modifiez TEMPS<sub>INTER</sub><sub>REQ</sub> pour lui donner la
+valeur 1000000 (1 million, soit 1 seconde)
+</li>
+<li>make
+</li>
+<li>for((i=1;i&lt;=1200;i+=1)); do (./clientTCP $i &amp;);done
+</li>
+<li>Le serveur affiche "1020-ieme client a traiter", puis "./serveurTCP<sub>n</sub><sub>tache</sub><sub>n</sub><sub>client</sub>:serveurTCP<sub>n</sub><sub>tache</sub><sub>n</sub><sub>client</sub>.c:68: accept: Too many open files"
+</li>
+<li>Dit autrement, le serveur a plante, alors qu'il cherchait à faire un accept pour le 1021 client.
+<ul class="org-ul">
+<li>Tapez la commande ulimit -a
+</li>
+<li>Vous constatez que le nombre maximum d'open files est de 1024
+</li>
+<li>Or, votre programme a ouvert stdin, stdout, stderr, la socket
+correspondant au point d'acces, 1020 socket correspondant aux
+sockets des 1020 premiers clients, soit un total de 1024
+fichiers ouverts. De ce fait, au 1025 clients, il s'arrête.
+</li>
+<li>ulimit -n 2048
+</li>
+<li>for((i=1;i&lt;=2000;i+=1)); do (./clientTCP $i &amp;);done
+</li>
+<li>Ca marche ! Evidemment, si on essaye de lancer simultanément
+plus de 2044 clients, ça plante.
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Serveur avec pool de threads pour gérer les clients</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>Présenter serveurTCP<sub>pool</sub><sub>tache</sub><sub>n</sub><sub>client</sub>.c et son
+fonctionnement. Faire remarquer que
+<ul class="org-ul">
+<li>rangClient est devenu static
+</li>
+<li>le mutex ne sert qu'a eviter les race conditions sur rangClient
+(tous les threads font accept en même temps)
+</li>
+<li>le thread qui fait main est également utiliser pour appeler
+gestionPointDAcces() (s'il ne faisait pas ça, le programme
+sortirait tout de suite !)
+</li>
+</ul>
+</li>
+<li>./serveurTCP<sub>pool</sub><sub>tache</sub><sub>n</sub><sub>client</sub>
+</li>
+<li>ulimit -n 1024
+</li>
+<li>for((i=1;i&lt;=2000;i+=1)); do (./clientTCP $i &amp;);done
+</li>
+<li>Ca marche
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Serveur avec N tâches gérant n clients</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li>L'exemple actuel avec TCP n'est pas adapté. Avec UDP, ça le serait,
+car chaque des N threads lancés pourraient faire l'instruction
+recvfrom() sur le même socket (à vous de le faire à titre
+d'exercice)
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> Serveur mono-tâche gérant tous les clients à la fois.</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>Présenter serveurTCP<sub>1</sub><sub>tache</sub><sub>n</sub><sub>client</sub>.c et son
+fonctionnement. Faire remarquer que
+<ul class="org-ul">
+<li>rangClient est devenu static
+</li>
+<li>Pas besoin de mutex sur rangClient puisqu'il n'y a qu'une seule
+tâche.
+</li>
+<li>Notez la notion de contexte pour gérer nbReponsesAuClient.
+</li>
+<li>Notez comment on a besoin de réarmer l'événement sur fdConnexion
+(alors qu'on a rendu persistant l'événement sur fdPointDAcces).
+</li>
+</ul>
+</li>
+<li>./serveurTCP<sub>pool</sub><sub>tache</sub><sub>n</sub><sub>client</sub>
+</li>
+<li>Notez comment le serveur rame si on décommente le usleep(100000);
+</li>
+<li>Notez que le serveur fait
+"./serveurTCP<sub>1</sub><sub>tache</sub><sub>n</sub><sub>client</sub>:serveurTCP<sub>1</sub><sub>tache</sub><sub>n</sub><sub>client</sub>.c:69:
+accept: Too many open files" si un client met 1 seconde entre chaque
+requête et qu'il y a beaucoup de clients. Pour résoudre cela,
+surtout pas de sémaphores, car cela bloquerait le programme. Seule
+solution =
+<ul class="org-ul">
+<li>Enlever le EV<sub>PERSIST</sub> de event<sub>new</sub> sur fdPointDAccess
+</li>
+<li>Ajouter un compteur et quand ce compteur devient proche de la
+valeur critique, ne pas réarmer l'événement lié à
+gestionPointDAcces. Ainsi, on ne fait pas d'accept en trop !
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: simatic</p>
+<p class="date">Created: 2017-06-05 lun. 15:23</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

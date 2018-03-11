@@ -1,0 +1,4 @@
+Exos à bien revoir :
+	- Liste chainee (DM)
+	- fork en n²
+	- Exo 2 séance 9

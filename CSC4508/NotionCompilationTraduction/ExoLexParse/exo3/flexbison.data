@@ -1,0 +1,4 @@
+This scanner counts the number of characters and the number of lines
+in its input. It produces no output other than the final report on the
+character and line counts.  The first line declares two globals,
+"numlines" and "numchars".

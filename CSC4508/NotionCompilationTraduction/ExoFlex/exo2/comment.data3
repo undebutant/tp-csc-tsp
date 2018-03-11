@@ -1,0 +1,4 @@
+i = 5; /* initialisation (*)
+          au nombre d'objets en i*/
+j = 6; /* initialisation (**)
+          au nombre d'objets en j*/

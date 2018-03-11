@@ -1,0 +1,6 @@
+
+gcc -Wall main11.c -c
+gcc -Wall message11.c -c
+
+gcc main11.o message11.o -o executable
+

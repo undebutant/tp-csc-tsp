@@ -1,0 +1,12 @@
+"flex" is a tool for generating "scanners".  A scanner is a program
+which recognizes lexical patterns in text.  The "flex" program reads
+the given input files, or its standard input if no file names are
+given, for a description of a scanner to generate.  The description is
+in the form of pairs of regular expressions and C code, called "rules".
+"flex" generates as output a C source file, "lex.yy.c" by default,
+which defines a routine "yylex()".  This file can be compiled and
+linked with the flex runtime library to produce an executable.  When
+the executable is run, it analyzes its input for occurrences of the
+regular expressions.  Whenever it finds one, it executes the
+corresponding C code.
+

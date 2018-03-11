@@ -1,0 +1,31 @@
+
+R1	S -> AB
+R2	A -> ab
+R3	B -> aba
+
+
+On part de ababa
+(rem : . est la partie de la phrase deja "avalé" par un shift, et $ la fin de ligne)
+
+
+INIT		.ababa$
+
+SHIFT		a.baba$
+SHIFT		ab.aba$
+
+// On a deux choix, SHIFT pour ensuite REDUCE en tant que le symbole non-terminal B, ou on REDUCE direct en tant que le symbole non-terminal A
+// Ici, on fait le second cas, car S, symbole terminal, est fait d'abord avec A
+// Donc choix à rendre déterministe
+
+REDUCE		A.aba$
+
+SHIFT		Aa.ba$
+SHIFT		Aab.a$
+
+// Encore deux choix possible, chercher le SHIFT pour atteindre un B, ou prendre le A direct
+// Cette fois, il vaut mieux prendre B -> determinisme
+
+SHIFT		Aaba.$
+REDUCE		AB.$
+
+Fin de l'analyse, on a bien identifié le mot unique ababa de la grammaire

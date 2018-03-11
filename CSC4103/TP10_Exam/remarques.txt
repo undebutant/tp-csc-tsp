@@ -1,0 +1,2 @@
+Remarques :
+	- Makefile : on peut mettre $@ pour remplacer le nom du -o précisé (la ligne appelée) et $< pour le premier argument de dépendance du makefile

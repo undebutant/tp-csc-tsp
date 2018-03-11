@@ -1,0 +1,56 @@
+
+///// Exo 2.1 /////
+
+L = a*b
+
+Donne :
+	L =   b
+	    | aL
+
+Ou :
+	A = 		// mot vide
+	    | Aa
+
+	L = Ab
+
+
+///// Exo 2.2 /////
+
+1/ L1 = a+
+
+2/ L1 est un langage régulier (càd qui est exprimable sous forme de regex) reconnaissable par l'expression régulière a+
+
+3/ La grammaire est :
+	* Context-free (= algébrique = toutes les règles n'ont qu'une variable sur la partie gauche, ex. L = ...)
+	* Linéaire (car possède au plus un symbole non terminal [càd =/= formés par concaténation de symboles élémentaires ou caractères pris dans un alphabet], ici L1)
+	* Non régulière car ni linéaire droite, ni linéaire gauche
+
+4/ L1 =   a
+        | L1a
+
+
+///// Exo 2.3 /////
+
+1/ Langage régulier
+
+2/ A =   aA
+       | aB
+
+   B = bB
+       | bC
+
+   C = c
+       | cC
+
+
+///// Exo 2.4 ~ 2.6 /////
+
+(cf corrigé)
+
+
+///// Exo 2.7 /////
+
+Bien comprendre pour cf (revoir notion non-algébrique)
+
+
+

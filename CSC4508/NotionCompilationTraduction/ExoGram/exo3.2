@@ -1,0 +1,41 @@
+
+Soit les règles suivantes, définissant une grammaire récursive gauche
+
+R1	S -> Sa
+R2	S -> a
+
+Identifions aaaa par la grammaire donnée (c'est la plus efficace)
+
+INIT		.aaaa$
+
+SHIFT		a.aaa$
+REDUCE		S.aaa$
+
+SHIFT		Sa.aa$
+REDUCE		S.aa$
+
+SHIFT		Sa.a$
+REDUCE		S.a$
+
+SHIFT		Sa.$
+REDUCE		S.$
+
+
+// Remarque : si l'analyse se fait par la grammaire récursive droite suivante 
+
+R1	S' -> aS'
+R2	S' -> a
+
+On change totalement de méthode de résolution
+
+INIT		.aaaa$
+
+SHIFT		a.aaa$
+SHIFT		aa.aa$
+SHIFT		aaa.a$
+SHIFT		aaaa.$
+
+REDUCE		aaaS.$
+REDUCE		aaS.$
+REDUCE		aS.$
+REDUCE		S.$

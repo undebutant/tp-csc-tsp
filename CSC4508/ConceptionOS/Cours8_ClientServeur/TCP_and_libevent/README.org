@@ -1,0 +1,81 @@
+* Utilisation du répertoire TCP_and_libevent
+Ce répertoire illustre le cours ASR3/JIN3 "Éléments d'architecture
+client-serveur".
+** Serveur mono-tâche gérant un client à la fois
+- Présenter clientTCP.c et son fonctionnement
+- Présenter serveurTCP_1_tache_1_client.c et son fonctionnement
+- make
+- ./serveurTCP_1_tache_1_client
+- ./clientTCP toto
+- Expliquer les sorties du serveur et du client.
+- for((i=1;i<=600;i+=1)); do (./clientTCP $i &);done
+- Constater qu'un client attend que le client precedent ait fini de
+  s'executer
+- Arrêter le serveur
+
+** Serveur avec autant de tâches que de clients
+- Présenter serveurTCP_n_tache_n_client.c et son fonctionnement
+- ./serveurTCP_n_tache_n_client
+- for((i=1;i<=600;i+=1)); do (./clientTCP $i &);done
+- Constater que l'exécution est beaucoup plus rapide.
+- Expliquer qu'il y a un bug et que pour le voir, il faut que les
+  requetes du client durent plus longtemps.
+  - Arrêter le serveur et le redémarrer.
+  - Dans clientTCP.c, modifiez TEMPS_INTER_REQ pour lui donner la
+    valeur 1000000 (1 million, soit 1 seconde)
+  - make
+  - for((i=1;i<=1200;i+=1)); do (./clientTCP $i &);done
+  - Le serveur affiche "1020-ieme client a traiter", puis "./serveurTCP_n_tache_n_client:serveurTCP_n_tache_n_client.c:68: accept: Too many open files"
+  - Dit autrement, le serveur a plante, alors qu'il cherchait à faire un accept pour le 1021 client.
+    - Tapez la commande ulimit -a
+    - Vous constatez que le nombre maximum d'open files est de 1024
+    - Or, votre programme a ouvert stdin, stdout, stderr, la socket
+      correspondant au point d'acces, 1020 socket correspondant aux
+      sockets des 1020 premiers clients, soit un total de 1024
+      fichiers ouverts. De ce fait, au 1025 clients, il s'arrête.
+    - ulimit -n 2048
+    - for((i=1;i<=2000;i+=1)); do (./clientTCP $i &);done
+    - Ca marche ! Evidemment, si on essaye de lancer simultanément
+      plus de 2044 clients, ça plante.
+
+** Serveur avec pool de threads pour gérer les clients
+- Présenter serveurTCP_pool_tache_n_client.c et son
+  fonctionnement. Faire remarquer que
+  - rangClient est devenu static
+  - le mutex ne sert qu'a eviter les race conditions sur rangClient
+    (tous les threads font accept en même temps)
+  - le thread qui fait main est également utiliser pour appeler
+    gestionPointDAcces() (s'il ne faisait pas ça, le programme
+    sortirait tout de suite !)
+- ./serveurTCP_pool_tache_n_client
+- ulimit -n 1024
+- for((i=1;i<=2000;i+=1)); do (./clientTCP $i &);done
+- Ca marche
+
+** Serveur avec N tâches gérant n clients
+- L'exemple actuel avec TCP n'est pas adapté. Avec UDP, ça le serait,
+  car chaque des N threads lancés pourraient faire l'instruction
+  recvfrom() sur le même socket (à vous de le faire à titre
+  d'exercice)
+
+** Serveur mono-tâche gérant tous les clients à la fois.
+- Présenter serveurTCP_1_tache_n_client.c et son
+  fonctionnement. Faire remarquer que
+  - rangClient est devenu static
+  - Pas besoin de mutex sur rangClient puisqu'il n'y a qu'une seule
+    tâche.
+  - Notez la notion de contexte pour gérer nbReponsesAuClient.
+  - Notez comment on a besoin de réarmer l'événement sur fdConnexion
+    (alors qu'on a rendu persistant l'événement sur fdPointDAcces).
+- ./serveurTCP_pool_tache_n_client
+- Notez comment le serveur rame si on décommente le usleep(100000);
+- Notez que le serveur fait
+  "./serveurTCP_1_tache_n_client:serveurTCP_1_tache_n_client.c:69:
+  accept: Too many open files" si un client met 1 seconde entre chaque
+  requête et qu'il y a beaucoup de clients. Pour résoudre cela,
+  surtout pas de sémaphores, car cela bloquerait le programme. Seule
+  solution =
+  - Enlever le EV_PERSIST de event_new sur fdPointDAccess
+  - Ajouter un compteur et quand ce compteur devient proche de la
+    valeur critique, ne pas réarmer l'événement lié à
+    gestionPointDAcces. Ainsi, on ne fait pas d'accept en trop !

@@ -1,0 +1,10 @@
+tube_4096	2000000 requests in 4742.724290 ms (2.371362 usec per request)
+tube_416	2000000 requests in 2540.334536 ms (1.270167 usec per request)
+tube_malloc	2000000 requests in 4404.551776 ms (2.202276 usec per request)
+tableau_semaphore	2000000 requests in 1884.051502 ms (0.942026 usec per request)
+cond	2000000 requests in 6589.848433 ms (3.294924 usec per request)
+file_messages	2000000 requests in 1976.761153 ms (0.988381 usec per request)
+file_messages_posix	2000000 requests in 2050.247383 ms (1.025124 usec per request)
+
+machine:
+Intel Core i7-4600U CPU @ 2.10GHz (4 cores)
